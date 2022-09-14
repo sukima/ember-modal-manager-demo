@@ -1,5 +1,18 @@
 {{page-title "EmberModalManagerDemo"}}
 
-<h2 id="title">Welcome to Ember</h2>
+<h2 id="title">Example modal manager</h2>
 
-{{outlet}}
+{{#let (modal-manager) as |manager|}}
+  <button type="button" {{on "click" manager.open}}>
+    Open Modal
+  </button>
+
+  {{#if manager.isOpen}}
+    <Modal @manager={{manager}}>
+      <p>Works</p>
+      <button type="button" {{on "click" manager.confirm}}>Dismiss</button>
+    </Modal>
+  {{/if}}
+{{/let}}
+
+<Modal::PortalTarget />

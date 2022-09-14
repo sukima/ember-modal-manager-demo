@@ -1,0 +1,11 @@
+{{#in-element this.modalPortalMediator.portalTarget}}
+  <dialog
+    ...attributes
+    {{show-modal}}
+    {{on "cancel" @manager.cancel}}
+    {{! template-lint-disable no-invalid-interactive }}
+    {{on "click" @manager.cancel}}
+  >
+    <div>{{yield @manager}}</div>
+  </dialog>
+{{/in-element}}
