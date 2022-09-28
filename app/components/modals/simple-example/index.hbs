@@ -1,0 +1,23 @@
+<Modal @manager={{@manager}}>
+  {{! template-lint-disable no-autofocus-attribute }}
+
+  <header>
+    <h1>Example Modal Dialog</h1>
+    <button type="button" {{on "click" @manager.cancel}}>&cross;</button>
+  </header>
+
+  <article>
+    <p>This is an example modal dialog box.</p>
+  </article>
+
+  <footer>
+    <button type="button" autofocus {{on "click" @manager.cancel}}>
+      Cancel
+    </button>
+    <button class="primary" type="button"
+      {{on "click" (fn @manager.confirm "foobar")}}
+    >
+      Confirm
+    </button>
+  </footer>
+</Modal>
