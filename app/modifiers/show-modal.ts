@@ -1,3 +1,4 @@
+import DialogController from '../utils/dialog-controller';
 import { assert } from '@ember/debug';
 import { modifier } from 'ember-modifier';
 
@@ -7,6 +8,7 @@ export default modifier((element: Element) => {
     element instanceof HTMLDialogElement
   );
 
-  element.showModal();
-  return () => element.close();
+  let controller = DialogController.for(element);
+  controller.open();
+  return () => controller.close();
 });
