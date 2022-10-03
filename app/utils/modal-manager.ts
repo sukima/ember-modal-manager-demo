@@ -10,13 +10,17 @@ interface ValuedResult<T> {
   value: T;
 }
 
+function noop() {
+  return;
+}
+
 export type Result<T> = CancelledResult | ValuedResult<T>;
 
-export default class ModalManager<T = any> {
+export default class ModalManager<T = unknown> {
   @tracked isOpen = false;
 
-  #resolve: (result: Result<T>) => void = () => {};
-  #reject: (error: Error) => void = () => {};
+  #resolve: (result: Result<T>) => void = noop;
+  #reject: (error: Error) => void = noop;
 
   @action
   open() {

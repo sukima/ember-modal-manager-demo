@@ -3,7 +3,7 @@ import { action } from '@ember/object';
 import { helper } from '@ember/component/helper';
 
 interface ValuedCallback {
-  (value: any): void; // eslint-disable-line no-unused-vars
+  (value: unknown): void;
 }
 
 interface Callbacks {
@@ -17,10 +17,14 @@ export interface Args {
   Named: Callbacks;
 }
 
+function noop() {
+  return;
+}
+
 export class TemplateModalManager extends ModalManager {
-  #onCancelled: () => void = () => {};
-  #onConfirmed: ValuedCallback = () => {};
-  #onRejected: ValuedCallback = () => {};
+  #onCancelled: () => void = noop;
+  #onConfirmed: ValuedCallback = noop;
+  #onRejected: ValuedCallback = noop;
 
   constructor(callbacks: Callbacks) {
     super();

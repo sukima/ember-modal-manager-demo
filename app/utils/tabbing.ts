@@ -27,7 +27,8 @@ export function confineTabbing(
   let firstElementWithin = null;
   let tabableElements = new Set(findTabableElements(selectAll));
   for (let element of tabableElements) {
-    tabIndexes.set(<HTMLElement>element, (<HTMLElement>element).tabIndex);
+    if (!(element instanceof HTMLElement)) continue;
+    tabIndexes.set(element, element.tabIndex);
     if (container.contains(element)) {
       firstElementWithin ??= element;
     } else {
@@ -40,6 +41,7 @@ export function confineTabbing(
 export function releaseTabbing(selectAll?: SelectorAllFn) {
   let tabableElements = new Set(findTabableElements(selectAll));
   for (let element of tabableElements) {
-    (<HTMLElement>element).tabIndex = tabIndexes.get(<HTMLElement>element) || 0;
+    if (!(element instanceof HTMLElement)) continue;
+    element.tabIndex = tabIndexes.get(element) || 0;
   }
 }

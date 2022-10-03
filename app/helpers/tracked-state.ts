@@ -2,20 +2,20 @@ import { helper } from '@ember/component/helper';
 import { tracked } from '@glimmer/tracking';
 
 interface Args {
-  Positional: [any];
+  Positional: [unknown];
 }
 
 export class TrackedState {
-  @tracked value: any;
+  @tracked value: unknown;
 
-  set = (value: any) => (this.value = value);
+  set = (value: unknown) => (this.value = value);
   toggle = () => this.set(!this.value);
 
   get is() {
     return { [`${this.value}`]: true };
   }
 
-  constructor(initialValue: any) {
+  constructor(initialValue: unknown) {
     this.value = initialValue;
   }
 }
