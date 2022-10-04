@@ -7,14 +7,27 @@ export default abstract class DialogController {
   abstract open(): void;
   abstract close(): void;
 
-  static for(element: HTMLDialogElement) {
-    return Reflect.has(element, 'showModal')
-      ? new ModernDialogController(element)
-      : new LegacyDialogController(element);
+  static for(element: HTMLDialogElement, modal = true) {
+    if (modal) {
+      return Reflect.has(element, 'showModal')
+        ? new ModalDialogController(element)
+        : new LegacyModalDialogController(element);
+    } else {
+      return new NonModalDialogController(element);
+    }
   }
 }
 
-class ModernDialogController extends DialogController {
+class NonModalDialogController extends DialogController {
+  open() {
+    this.element.show();
+  }
+  close() {
+    this.element.close();
+  }
+}
+
+class ModalDialogController extends DialogController {
   open() {
     this.element.showModal();
   }
@@ -23,7 +36,7 @@ class ModernDialogController extends DialogController {
   }
 }
 
-class LegacyDialogController extends DialogController {
+class LegacyModalDialogController extends DialogController {
   #handleEscape = (event: KeyboardEvent) => {
     if (event.key !== 'Escape') return;
     event.preventDefault();
