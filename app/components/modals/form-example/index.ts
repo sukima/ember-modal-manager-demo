@@ -13,6 +13,9 @@ export default class ModalsFormExample extends Component<Signature> {
   @action
   confirmFormData(event: SubmitEvent) {
     let form = event.target as HTMLFormElement;
-    this.args.manager.confirm(new FormData(form));
+    let formattedFormData = JSON.stringify(
+      Object.fromEntries(new FormData(form))
+    );
+    this.args.manager.confirm(formattedFormData);
   }
 }
