@@ -4,16 +4,16 @@
 
 {{#let (tracked-state) as |lastResult|}}
   {{#let
-    (modal-manager onCancelled=lastResult.set onConfirmed=lastResult.set onRejected=lastResult.set)
-    (modal-manager onCancelled=lastResult.set onConfirmed=lastResult.set onRejected=lastResult.set)
-    (modal-manager onCancelled=lastResult.set onConfirmed=lastResult.set onRejected=lastResult.set)
+    (modal-manager onDone=lastResult.set)
+    (modal-manager onDone=lastResult.set)
+    (modal-manager onDone=lastResult.set)
     as |simpleExample confirmExample formExample|
   }}
     <dl>
       <dt>Reason:</dt>
-      <dd><data>{{lastResult.value}}</data></dd>
+      <dd><data>{{lastResult.value.reason}}</data></dd>
       <dt>Value:</dt>
-      <dd><data>{{lastResult.value}}</data></dd>
+      <dd><data>{{lastResult.value.value}}</data></dd>
     </dl>
 
     <div id="open-buttons" class="button-group">

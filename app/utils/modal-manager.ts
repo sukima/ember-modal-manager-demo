@@ -1,20 +1,20 @@
 import { action } from '@ember/object';
 import { tracked } from '@glimmer/tracking';
 
-interface CancelledResult {
+export interface CancelledResult {
   reason: 'cancelled';
 }
 
-interface ValuedResult<T> {
+export interface ValuedResult<T> {
   reason: 'confirmed' | 'rejected';
   value: T;
 }
 
+export type Result<T> = CancelledResult | ValuedResult<T>;
+
 function noop() {
   return;
 }
-
-export type Result<T> = CancelledResult | ValuedResult<T>;
 
 export default class ModalManager<T = unknown> {
   @tracked isOpen = false;
