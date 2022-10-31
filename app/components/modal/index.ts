@@ -1,4 +1,5 @@
 import Component from '@glimmer/component';
+import { action } from '@ember/object';
 import { inject as service } from '@ember/service';
 
 import type ModalManager from '../../utils/modal-manager';
@@ -11,6 +12,13 @@ export interface Sig {
   Yields: [ModalManager];
 }
 
-export default class Modal extends Component<Sig> {
+export default class Modal extends Component<Sig['Args']> {
   @service declare modalPortalMediator: ModalPortalMediator;
+
+  @action
+  onOutsideClick(event: MouseEvent) {
+    if (event.target === event.currentTarget) {
+      this.args.manager.cancel();
+    }
+  }
 }
